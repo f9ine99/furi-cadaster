@@ -1,0 +1,229 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #e4e7e4, #6b73ff, #145277, #83d0cb, #211f2f, #918ca9);
+    background-size: 400% 400%;
+    animation: gradientAnimation 12s ease infinite;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Gradient Animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header Styles */
+header {
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent */
+    color: white;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: rgba(255, 255, 255, 0); /* Transparent */
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Slight hover effect */
+    color: #ffffff;
+}
+
+/* Navbar Toggle (Hamburger Icon) */
+.navbar-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* Mobile Navbar Styles */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 12px 12px;
+        transition: left 0.3s ease;
+    }
+
+    .navbar ul.navbar-active {
+        left: 0;
+    }
+
+    .navbar-toggle {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .navbar ul li {
+        margin: 0;
+        padding: 10px 0;
+    }
+}
+
+/* Search Container Styles */
+.search-container {
+    max-width: 600px;
+    margin: 170px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.search-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    background: #f0f0f0;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    background-color: #f0f0f0;
+}
+
+.btn-submit {
+    padding: 15px 30px;
+    background-color: #6b73ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #5a63e3;
+}
+
+/* Order Details Styles */
+.order-details {
+    padding: 30px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-top: 20px;
+}
+
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.125rem;
+}
+
+/* Error and Processing Messages */
+.error-message {
+    padding: 15px;
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Mobile Styles */
+@media (max-width: 414px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        transition: left 0.3s ease;
+    }
+
+    .navbar ul.navbar-active {
+        left: 0;
+    }
+
+    .navbar-toggle {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .search-container {
+        margin: 100px auto;
+        padding: 20px;
+    }
+
+    .info-item {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workers Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/workerstyle.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <i class="fas fa-hard-hat worker-icon"></i>
+        <h1>Worker Login</h1>
+        <form method="POST" action="{{ url_for('workers') }}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            <input type="submit" value="Login">
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if remaining_attempts %}
+            <p class="lockout-message">{{ remaining_attempts }} login attempts remaining.</p>
+        {% endif %}
+
+        {% if lockout_time_remaining %}
+            <p class="lockout-message">Account locked. Try again in {{ lockout_time_remaining }} minutes.</p>
+        {% endif %}
+
+        <p class="forgot-password">Forgot your <a href="#">password?</a></p>
+    </div>
+</body>
+</html>

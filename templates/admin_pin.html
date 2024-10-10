@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin PIN Authentication</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6b73ff, #83d0cb, #918ca9, #918ca9);
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite;
+        }
+
+            /* Gradient Animation */
+            @keyframes gradientAnimation {
+            0% {
+        background-position: 0% 50%;
+           }
+             50% {
+        background-position: 100% 50%;
+            }
+             100% {
+        background-position: 0% 50%;
+    }
+}
+
+        .container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #00796b;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        .error-message {
+            color: #d32f2f;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="password"]:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 10px rgba(0, 150, 136, 0.2);
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+            box-shadow: 0 5px 15px rgba(0, 150, 136, 0.3);
+            transform: translateY(-2px);
+        }
+        .forgot-pin {
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .forgot-pin a {
+            color: #00796b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .forgot-pin a:hover {
+            text-decoration: underline;
+        }
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            button {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin PIN Authentication</h2>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('admin_pin') }}">
+            <input type="password" name="pin" placeholder="Enter PIN" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="forgot-pin">
+            <a href="#">Forgot PIN?</a>
+        </div>
+    </div>
+</body>
+</html>

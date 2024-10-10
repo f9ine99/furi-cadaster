@@ -1,0 +1,82 @@
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/searchstyle.css') }}">
+    <header>
+        <div class="header-container">
+            <h1>የካርታ ሁኔታ ማረጋገጫ</h1>
+            <nav class="navbar">
+                <!-- Hamburger icon for mobile -->
+                <span class="navbar-toggle" id="js-navbar-toggle">
+                    <i class="fas fa-bars"></i>
+                </span>
+                <ul class="navbar-menu" id="js-menu">
+                    <li><a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{{ url_for('workers') }}"><i class="fas fa-users"></i> Workers</a></li>
+                    <li><a href="{{ url_for('admin_pin') }}"><i class="fas fa-user-shield"></i> Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <h2>የካርታ ቁጥር ያስገቡ</h2>
+            <form method="POST" action="{{ url_for('search') }}" class="search-form">
+                <div class="input-group">
+                    <input type="text" id="order_id" name="order_id" pattern="[A-Za-z0-9/]+" 
+                           title="Only letters, numbers, and slashes are allowed" 
+                           placeholder="Enter your UPIC ID" required>
+                    <button type="submit" class="btn-submit">Search</button>
+                </div>
+            </form>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if order %}
+            <div class="order-details">
+                <h3>Customer Details</h3>
+                <div class="order-info">
+                    <div class="info-item">
+                        <span class="label">UPIC ID:</span>
+                        <span class="value">{{ order.order_id }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Customer Name:</span>
+                        <span class="value">{{ order.customer_name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">carta id:</span>
+                        <span class="value">{{ order.carta_id }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">shape_carta:</span>
+                        <span class="value">{{ order.shape_of_carta }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">width of carta:</span>
+                        <span class="value">{{ order.width_of_carta }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">status:</span>
+                        <span class="value">{{ order.status }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </main>
+</head>
+<script>
+    const navbarToggle = document.getElementById('js-navbar-toggle');
+    const navbarMenu = document.getElementById('js-menu');
+
+    navbarToggle.addEventListener('click', () => {
+        navbarMenu.classList.toggle('navbar-active');
+    });
+</script>
+{% endblock %}

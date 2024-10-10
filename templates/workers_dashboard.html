@@ -1,0 +1,249 @@
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: rgba(195, 195, 195, 0.8);
+    color: rgb(100, 100, 100);
+    border-radius: 10px;
+    border-bottom: 2px solid rgba(163, 160, 160, 0.2);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.dashboard-header:hover {
+    background-color: #868686;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.header-button {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.header-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.logout-button {
+    background-color: #dc3545;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.welcome-message {
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome-message h3 {
+    font-size: 26px;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+.welcome-message p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 12px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    flex: 0 0 150px;
+    margin-right: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.order-form input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.order-form input:focus {
+    border-color: #007bff;
+}
+
+.submit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #218838;
+}
+
+</style>
+
+<div class="admin-dashboard">
+    <header class="dashboard-header">
+        <h2>Workers Dashboard</h2>
+        <div class="header-buttons">
+            <a href="{{ url_for('index') }}" class="header-button">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="{{ url_for('existing_orders') }}" class="header-button">
+                <i class="fas fa-list"></i> View Existing Orders
+            </a>
+            <a href="{{ url_for('logout') }}" class="header-button logout-button">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </header>
+
+    <div class="welcome-message">
+        <h3>Welcome, {{ session.get('worker_username', 'Worker') }}!</h3>
+        <p>We're glad to have you back. Manage your tasks efficiently and keep track of all orders.</p>
+    </div>
+
+        <!-- Add New Order Form -->
+        <div class="form-container">
+            <h3>Fayyadamaa Haaraa Dabaluuf</h3>
+            <form method="POST" action="{{ url_for('add_order') }}" class="order-form">
+                <div class="form-row">
+                    <label for="order_id">UPIC ID</label>
+                    <input type="text" id="order_id" name="order_id" placeholder="e.g., OR/000, OR00013" pattern="[A-Za-z0-9/]+" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="carta_id">lakkoof kaarta</label>
+                    <input type="text" id="carta_id" name="carta_id" placeholder="lakkoof kaarta">
+                </div>
+
+                <div class="form-row">
+                    <label for="customer_name">Maqaa abbaa qabiyyee</label>
+                    <input type="text" id="customer_name" name="customer_name" placeholder="Maqaa abbaa qabiyyee" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="shape_of_area">Shape of Area</label>
+                    <input type="text" id="shape_of_area" name="shape_of_area" placeholder="Shape of Area">
+                </div>
+
+                <div class="form-row">
+                    <label for="width_of_carta">Bal’ina Kaarta</label>
+                    <input type="text" id="width_of_carta" name="width_of_carta" placeholder="Bal’ina Kaarta">
+                </div>
+
+                <div class="form-row">
+                    <label for="status">Status</label>
+                    <input type="text" id="status" name="status" placeholder="Status">
+                </div>
+
+                <button type="submit" class="submit-button">ADD</button>
+            </form>
+        </div>
+
+{% endblock %}
