@@ -15,9 +15,9 @@ env/
 *.log
 *.tmp
 
-# OS-specific files
-.DS_Store
-instance/orders.db
+# Ignore the entire instance folder
+instance/
+
 
 # Editor settings
 .vscode/
