@@ -27,4 +27,6 @@ workers.log
 .vscode/
 .idea/
 
+# Ignore Pyarmor runtime files
+pyarmor_runtime_*
 
