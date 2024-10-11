@@ -76,6 +76,65 @@
                 font-size: 0.875rem;
             }
         }
+        /* Section Title */
+.section-title {
+    font-family: 'Arial', sans-serif;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Draggable Worker Badge */
+.draggable-worker {
+    font-size: 18px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.draggable-worker:hover {
+    background-color: #5a6268;
+    transform: scale(1.1);
+}
+
+.dragging {
+    opacity: 0.7;
+    background-color: #495057;
+}
+
+/* Username Input */
+.styled-input {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 2px solid #ced4da;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.styled-input:focus {
+    border-color: #495057;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.styled-input.drag-over {
+    border-color: #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive Worker List */
+#workerList {
+    max-width: 600px;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    #workerList {
+        justify-content: space-around;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -150,6 +209,21 @@
 
         <!-- Search and Filter Controls -->
 <form id="filterForm" method="GET" action="{{ url_for('monitor') }}">
+   <!-- Worker List for Drag and Drop -->
+<div class="mt-4">
+    <h5 class="section-title">Drag a worker's name to the search field:</h5>
+    <div id="workerList" class="d-flex flex-wrap justify-content-center">
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Nuguse</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Teshager</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Imebet</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Olana</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Gezahegn</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Bereket</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Hirut</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Leelloo</span>
+        <span class="draggable-worker badge p-2 m-2" draggable="true">Gonfa</span>
+    </div>
+</div>
     <div class="row mb-3">
         <div class="col-md-4">
             <input type="text" name="username" id="searchUsername" class="form-control" placeholder="Search by Username" value="{{ request.args.get('username', '') }}">
@@ -439,6 +513,40 @@
             const rawDate = ts.getAttribute('data-timestamp');
             ts.innerHTML = formatTimestamp(rawDate); // Set the formatted timestamp
         });
+    });
+
+     // Add drag and drop functionality
+    const workers = document.querySelectorAll('.draggable-worker');
+    const usernameField = document.getElementById('searchUsername');
+
+    workers.forEach(worker => {
+        // When dragging starts
+        worker.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.innerText); // Set worker name as data to transfer
+            worker.classList.add('dragging'); // Add dragging effect
+        });
+
+        worker.addEventListener('dragend', () => {
+            worker.classList.remove('dragging'); // Remove dragging effect
+        });
+    });
+
+    // Allow dropping on the username input field
+    usernameField.addEventListener('dragover', (e) => {
+        e.preventDefault(); // Necessary to allow a drop
+        usernameField.classList.add('drag-over'); // Highlight drop area
+    });
+
+    // Handle the drop event
+    usernameField.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const draggedWorkerName = e.dataTransfer.getData('text/plain'); // Get the dragged worker name
+        usernameField.value = draggedWorkerName; // Set the username input field to the dragged worker name
+        usernameField.classList.remove('drag-over'); // Remove highlight
+    });
+
+    usernameField.addEventListener('dragleave', () => {
+        usernameField.classList.remove('drag-over'); // Remove highlight when dragging leaves input area
     });
     </script>
 </div>
