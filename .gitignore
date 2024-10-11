@@ -18,6 +18,10 @@ env/
 # Ignore the entire instance folder
 instance/
 
+#logs 
+order_logs.log
+workers.log
+
 
 # Editor settings
 .vscode/
