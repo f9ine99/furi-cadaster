@@ -16,11 +16,11 @@ env/
 *.tmp
 
 # Ignore the entire instance folder
-instance/
+#instance/
 
 #logs 
-order_logs.log
-workers.log
+#order_logs.log
+#workers.log
 
 
 # Editor settings
@@ -28,5 +28,5 @@ workers.log
 .idea/
 
 # Ignore Pyarmor runtime files
-pyarmor_runtime_*
+#pyarmor_runtime_*
 
